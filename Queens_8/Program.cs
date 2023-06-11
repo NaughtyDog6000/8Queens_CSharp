@@ -20,13 +20,14 @@ namespace Queens_8
             List<Coordinate> coordinates = new ManualTesting().GetCoordsToCreate();
 
             //testing manual coord creeation
-            foreach (var coordinate in coordinates)
-            {
-                Console.WriteLine(coordinate.ToString());
-                board.AddPieceToBoard(coordinate, "Queen");
-            }
             
+            // foreach (var coordinate in coordinates)
+            // {
+            //     Console.WriteLine(coordinate.ToString());
+            //     board.AddPieceToBoard(coordinate, "Queen");
+            // }
             
+            new BruteForceTest().OnePerColumn(board, "Queen", 8);
             
             
             Console.WriteLine("\n CREATED PIECES:");
