@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using static Queens_8.Program.BasicTargetFunctions;
 
 namespace Queens_8
 {
@@ -23,9 +23,13 @@ namespace Queens_8
         
         public void UpdatePosition(Program.Coordinate coords) { this._coords = coords; }
         public Program.Coordinate GetCurrentPosition() { return this._coords; }
-        public List<Program.Coordinate> GetTargetablePositions()
+        public bool CanTargetPosition(Program.Coordinate targetPosition)
         {
-            throw new System.NotImplementedException();
+            //Queen can attack diagonals, horizontals, verticals
+            if (DiagonalTarget(this._coords, targetPosition)) return true;
+            if (HorizontalTarget(this._coords, targetPosition)) return true;
+            if (VerticalTarget(this._coords, targetPosition)) return true;
+            return false;
         }
         
         //Debug Methods

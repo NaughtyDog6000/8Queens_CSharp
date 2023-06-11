@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace Queens_8
 {
@@ -35,18 +37,43 @@ namespace Queens_8
             
             //Methods
             
-            public bool AddPieceToBoard(IPiece piece)
+            public bool AddPieceToBoard(Coordinate coordinate, string type)
             {
-                foreach (IPiece currentPiece in _pieces)
+                //check the validity of the current position before creating the piece and wasting time
+                foreach (var currentPiece in _pieces)
                 {
-                    if (piece.GetCurrentPosition() == currentPiece.GetCurrentPosition())
+                    if (coordinate == currentPiece.GetCurrentPosition()) { Console.WriteLine("The Attempted Position is occupied"); return false; }
+
+                    foreach (var piece in _pieces)
                     {
-                        return false;
+                        if (piece.CanTargetPosition(coordinate)) return false;
                     }
-                    
                 }
+
                 
-                this._pieces.Add(piece);
+                //Create the new piece of the type passed
+                switch (type)
+                {
+                    case "Queen":
+                        Console.WriteLine($"Creating Queen @ {coordinate.ToString()}");
+                        _pieces.Add(new Queen(coordinate)); 
+                        break;
+                    case "Pawn":
+                        throw new NotImplementedException();
+                        
+                    case "King":
+                        throw new NotImplementedException();
+                    
+                    case "Knight":
+                        throw new NotImplementedException();
+                    
+                    default:
+                        Console.WriteLine("WTF IS THAT PIECE! (Piece not added to the reg)");
+                        return false;
+                        break;
+                }
+                    
+                //signal everything went well
                 return true;
             }
 

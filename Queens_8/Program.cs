@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Dynamic;
+using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Security.AccessControl;
 using System.Xml;
@@ -22,11 +23,12 @@ namespace Queens_8
             foreach (var coordinate in coordinates)
             {
                 Console.WriteLine(coordinate.ToString());
+                board.AddPieceToBoard(coordinate, "Queen");
             }
             
             
-            IPiece piece = new Queen(coords: new Coordinate(0,0));
-            board.AddPieceToBoard(piece);
+            
+            
             
             board.DebugAllPiecePositions();
             
@@ -57,6 +59,17 @@ namespace Queens_8
                 return !c1.Equals(c2);
             }
 
+            /// <summary>
+            /// Gets the difference between the two positions
+            /// </summary>
+            /// <param name="c1">First Coordinate</param>
+            /// <param name="c2">Second Coordinate</param>
+            /// <returns>the delta of the second from the first coordinate</returns>
+            public static Coordinate operator -(Coordinate c1, Coordinate c2)
+            {
+                return new Coordinate(c1.XPos - c2.XPos, c1.YPos - c2.YPos);
+            }
+            
             private bool Equals(Coordinate coord2)
             {
                 if (this.XPos == coord2.XPos && this.YPos == coord2.YPos) return true;
@@ -74,7 +87,7 @@ namespace Queens_8
         public interface IPiece
         {
             void UpdatePosition(Coordinate coords);
-            List<Coordinate> GetTargetablePositions();
+            bool CanTargetPosition(Coordinate targetPosition);
             Coordinate GetCurrentPosition();
             void DebugPrintStatus();
 
@@ -95,28 +108,8 @@ namespace Queens_8
             
             public static bool DiagonalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
             {
-                if (Math.Abs(pieceCoord.XPos) == Math.Abs(targetCoordinate.XPos))
-                {
-                    Console.WriteLine("Xpos is of the same magnitiude");
-                }
-                else
-                {
-                    Console.WriteLine("Xpos is not of the same magnitude; they are not diagonal tiles");
-                    return false;
-                }
-
-                if (Math.Abs(pieceCoord.YPos) == Math.Abs(targetCoordinate.YPos))
-                {
-                    Console.WriteLine("Ypos is of the same magnitude");
-                }
-                else
-                {
-                    Console.WriteLine("Ypos is not of the same magnitude; they are not diagonal tiles");
-                    return false;
-                }
-                
-                
-                return true;
+                Coordinate delta = pieceCoord - targetCoordinate;
+                return Math.Abs(delta.XPos) == Math.Abs(delta.YPos);
             }
         }
   
