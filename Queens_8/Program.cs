@@ -29,7 +29,7 @@ namespace Queens_8
             
             
             
-            
+            Console.WriteLine("\n CREATED PIECES:");
             board.DebugAllPiecePositions();
             
             Console.WriteLine("DONE!");
@@ -81,7 +81,6 @@ namespace Queens_8
                 return $"XPosition: {this.XPos}, YPosition: {this.YPos}";
             }
         }
-
         
 
         public interface IPiece

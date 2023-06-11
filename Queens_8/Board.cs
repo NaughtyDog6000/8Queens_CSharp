@@ -40,14 +40,11 @@ namespace Queens_8
             public bool AddPieceToBoard(Coordinate coordinate, string type)
             {
                 //check the validity of the current position before creating the piece and wasting time
-                foreach (var currentPiece in _pieces)
+                foreach (var piece in _pieces)
                 {
-                    if (coordinate == currentPiece.GetCurrentPosition()) { Console.WriteLine("The Attempted Position is occupied"); return false; }
+                    if (coordinate == piece.GetCurrentPosition()) { Console.WriteLine("The Attempted Position is occupied"); return false; }
+                    if (piece.CanTargetPosition(coordinate)) { Console.WriteLine($"PIECE FAILED TO BE CREATED, {piece.GetCurrentPosition().ToString()} can Target it"); return false;}
 
-                    foreach (var piece in _pieces)
-                    {
-                        if (piece.CanTargetPosition(coordinate)) return false;
-                    }
                 }
 
                 
