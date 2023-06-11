@@ -1,0 +1,7 @@
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\bin\Debug\Queens_8.exe
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\bin\Debug\Queens_8.pdb
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\obj\Debug\Queens_8.csproj.AssemblyReference.cache
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\obj\Debug\Queens_8.csproj.SuggestedBindingRedirects.cache
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\obj\Debug\Queens_8.csproj.CoreCompileInputs.cache
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\obj\Debug\Queens_8.exe
+C:\Users\Robbie\RiderProjects\Queens_8\Queens_8\obj\Debug\Queens_8.pdb

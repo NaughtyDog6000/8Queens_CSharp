@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Dynamic;
 using System.Reflection.Emit;
@@ -8,12 +9,30 @@ using System.Xml;
 
 namespace Queens_8
 {
-    public class Program
+    public partial class Program
     {
         public static void Main(string[] args)
         {
             Board board = new Board();
+
             
+            List<Coordinate> coordinates = new ManualTesting().GetCoordsToCreate();
+
+            //testing manual coord creeation
+            foreach (var coordinate in coordinates)
+            {
+                Console.WriteLine(coordinate.ToString());
+            }
+            
+            
+            IPiece piece = new Queen(coords: new Coordinate(0,0));
+            board.AddPieceToBoard(piece);
+            
+            board.DebugAllPiecePositions();
+            
+            Console.WriteLine("DONE!");
+            // Console.ReadLine(); //only necessary for console (Rider runs in built in terminal)
+
         }
 
 
@@ -43,7 +62,11 @@ namespace Queens_8
                 if (this.XPos == coord2.XPos && this.YPos == coord2.YPos) return true;
                 return false;
             }
-            
+
+            public override string ToString()
+            {
+                return $"XPosition: {this.XPos}, YPosition: {this.YPos}";
+            }
         }
 
         
@@ -53,48 +76,49 @@ namespace Queens_8
             void UpdatePosition(Coordinate coords);
             List<Coordinate> GetTargetablePositions();
             Coordinate GetCurrentPosition();
+            void DebugPrintStatus();
 
         }
-
-        public class Board
+        
+        
+        public static class BasicTargetFunctions
         {
-            //properties
-            private List<IPiece> Pieces = new List<IPiece>();
-
-            //Constructor
-
-            public Board()
+            public static bool HorizontalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
             {
-                
+                return pieceCoord.YPos == targetCoordinate.YPos;
             }
             
-            
-            
-            //Methods
-            
-            public bool AddPieceToBoard(IPiece piece)
+            public static bool VerticalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
             {
-                foreach (IPiece currentPiece in Pieces)
+                return pieceCoord.XPos == targetCoordinate.XPos;
+            }
+            
+            public static bool DiagonalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
+            {
+                if (Math.Abs(pieceCoord.XPos) == Math.Abs(targetCoordinate.XPos))
                 {
-                    if (piece.GetCurrentPosition() == currentPiece.GetCurrentPosition())
-                    {
-                        return false;
-                    }
-                    
+                    Console.WriteLine("Xpos is of the same magnitiude");
+                }
+                else
+                {
+                    Console.WriteLine("Xpos is not of the same magnitude; they are not diagonal tiles");
+                    return false;
+                }
+
+                if (Math.Abs(pieceCoord.YPos) == Math.Abs(targetCoordinate.YPos))
+                {
+                    Console.WriteLine("Ypos is of the same magnitude");
+                }
+                else
+                {
+                    Console.WriteLine("Ypos is not of the same magnitude; they are not diagonal tiles");
+                    return false;
                 }
                 
                 
-                this.Pieces.Add(piece);
                 return true;
             }
-
-            public IPiece CheckPositionContents()
-            {
-                //should check the contents of a passed tile, returning the piece if filled
-                throw new NotImplementedException();
-                return null;
-            }
-
         }
+  
     }
 }
