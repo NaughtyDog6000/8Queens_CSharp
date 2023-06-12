@@ -2,42 +2,43 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Configuration;
 using static Queens_8.Program;
 
 namespace Queens_8
 {
     public class BruteForceTest
     {
-        public void BruteForce(Board board, string type, int numberOfPieces)
+        public void BruteForce(Board board, IPiece type, int numberOfPieces)
         {
             Stopwatch sw = new Stopwatch();
 
+            Console.WriteLine($"Type: {type.GetType()}");
+            
             sw.Start();
-
-            //wait this is not going to work theres liek a ridiulous number of possibel combinations
-            // while (true)
-            // {
-            //     //this is close enogh rihgt?
-            // }
-
-            public List<IPiece> Pieces = new List<IPiece>();
-
-
+            //BruteForce by trying every possible combination (stupid)
+            
+            
+            
             sw.Stop();
+            Console.WriteLine($"Time Elapsed: {sw.Elapsed}");
 
-            Console.WriteLine($"Time Elapsed to run test: {sw.Elapsed}");
         }
+
+        
 
 
         public void OnePerColumn(Board board, string type, int numberOfPieces)
         {
-
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
             //this one should not attempt to put any in the same column as a previous one
+            
 
 
-
-
+            sw.Stop();
+            Console.WriteLine($"Time Elapsed: {sw.Elapsed}");
         }
 
         public void OnePerColumnAndOnePerRow(Board board, string type, int numberOfPieces)
@@ -70,5 +71,6 @@ namespace Queens_8
         }
 
 
+        
     }
 }

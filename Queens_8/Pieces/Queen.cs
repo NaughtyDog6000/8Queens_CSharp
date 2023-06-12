@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Queens_8.Program.BasicTargetFunctions;
 
-namespace Queens_8
+namespace Queens_8.Pieces
 {
     public class Queen : Program.IPiece
     {
@@ -17,6 +16,12 @@ namespace Queens_8
         {
             this._coords = coords;
         }
+
+        public Queen(int x = -1, int y = -1)
+        {
+            this._coords = new Program.Coordinate(x, y);
+        }
+        
         
         
         //methods

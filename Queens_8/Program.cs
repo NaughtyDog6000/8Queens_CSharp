@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Security.AccessControl;
 using System.Xml;
+using Queens_8.Pieces;
 
 namespace Queens_8
 {
@@ -26,8 +27,11 @@ namespace Queens_8
             //     Console.WriteLine(coordinate.ToString());
             //     board.AddPieceToBoard(coordinate, "Queen");
             // }
+            BruteForceTest bruteForceTest = new BruteForceTest();
             
-            new BruteForceTest().OnePerColumn(board, "Queen", 8);
+            bruteForceTest.BruteForce(board, new Queen(), 8);
+            
+            bruteForceTest.OnePerColumn(board, "Queen", 8);
             
             
             Console.WriteLine("\n CREATED PIECES:");
@@ -96,20 +100,44 @@ namespace Queens_8
         
         public static class BasicTargetFunctions
         {
-            public static bool HorizontalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
+            public static bool HorizontalTarget(Coordinate pieceCoord, Coordinate targetCoordinate, int maxRange = 0)
             {
-                return pieceCoord.YPos == targetCoordinate.YPos;
+                // return pieceCoord.YPos == targetCoordinate.YPos;
+
+                if (pieceCoord.YPos == targetCoordinate.YPos)
+                {
+                    //if there is no max range or the piece is less than or equal to max range distance away
+                    if (maxRange == 0 || (pieceCoord - targetCoordinate).XPos <= maxRange) return true;
+                }
+
+                return false;
             }
             
-            public static bool VerticalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
+            public static bool VerticalTarget(Coordinate pieceCoord, Coordinate targetCoordinate, int maxRange = 0)
             {
-                return pieceCoord.XPos == targetCoordinate.XPos;
+                // return pieceCoord.XPos == targetCoordinate.XPos;
+                
+                if (pieceCoord.XPos == targetCoordinate.XPos)
+                {
+                    //if there is no max range or the piece is less than or equal to max range distance 
+                    if (maxRange == 0 || (pieceCoord - targetCoordinate).YPos <= maxRange) return true;
+                }
+
+                return false;
             }
             
-            public static bool DiagonalTarget(Coordinate pieceCoord, Coordinate targetCoordinate)
+            public static bool DiagonalTarget(Coordinate pieceCoord, Coordinate targetCoordinate, int maxRange = 0)
             {
                 Coordinate delta = pieceCoord - targetCoordinate;
-                return Math.Abs(delta.XPos) == Math.Abs(delta.YPos);
+                // return Math.Abs(delta.XPos) == Math.Abs(delta.YPos);
+
+                if (Math.Abs(delta.XPos) == Math.Abs(delta.YPos))
+                {
+                    //if there is no max range or if the magnitude of the offset is less than or equal to max range distance
+                    if (maxRange == 0 || delta.XPos <= maxRange) return true;
+                }
+
+                return false;
             }
         }
   

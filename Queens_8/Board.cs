@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using Queens_8.Pieces;
 
 namespace Queens_8
 {
